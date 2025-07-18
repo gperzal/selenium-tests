@@ -6,6 +6,8 @@
 [![Selenium](https://img.shields.io/badge/Selenium-Automation-green)](https://www.selenium.dev/)
 [![Brave](https://img.shields.io/badge/Brave-Browser-orange)](https://brave.com/)
 
+[![CI](https://github.com/gperzal/selenium-tests/actions/workflows/test-ui.yml/badge.svg?branch=main)](https://github.com/gperzal/selenium-tests/actions/workflows/test-ui.yml)
+
 </div>
 
 ---
