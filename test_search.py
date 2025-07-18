@@ -6,13 +6,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
 import os
+import platform
 
 # Start timer
 start_time = time.time()
 
 # Brave browser configuration
 options = Options()
-options.binary_location = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+
+if platform.system() == "Windows":
+    options.binary_location = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+elif platform.system() == "Linux":
+    options.binary_location = "/usr/bin/brave-browser"
+
 options.add_argument("--start-maximized")
 
 # Launch ChromeDriver (expects it to be in PATH)

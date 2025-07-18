@@ -4,7 +4,7 @@ Azure Test Plans | Microsoft Azure
 Testing en DevOps y otras metodologías: una guía práctica
 Dominando las pruebas en DevOps: Una guía exhaustiva de tipos y ...
 Devops Testing: Concepts, Best Practices & Tools - Testsigma
-PDF DevOps Testing
 Developing a DevOps Testing Strategy: Benefits, Best Practices & Tools
 DevOps Testing: Types, Benefits, and Proven Best Practices
+PDF DevOps Testing
 ¿Qué es Azure Test Plans? Herramientas de prueba manuales ...
