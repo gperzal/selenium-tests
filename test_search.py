@@ -20,9 +20,14 @@ elif platform.system() == "Linux":
     options.binary_location = "/usr/bin/brave-browser"
 
 options.add_argument("--start-maximized")
-
+options.add_argument("--headless=new")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument(f"--user-data-dir=/tmp/brave-user-data-{os.getpid()}") 
+ 
 # Launch ChromeDriver (expects it to be in PATH)
 driver = webdriver.Chrome(options=options)
+
 
 try:
     # Open DuckDuckGo
