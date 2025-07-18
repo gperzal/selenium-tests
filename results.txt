@@ -1,10 +1,10 @@
-What is Azure Test Plans? Manual, exploratory, and automated test tools ...
-Testing in DevOps: Concepts, Best Practices & More - BMC Software
+¿Qué es Azure Test Plans? Herramientas de prueba manuales ...
 Azure Test Plans | Microsoft Azure
-Las 17 principales herramientas de prueba de DevOps (2025) - Guru99
+Testing in DevOps: Concepts, Best Practices & More - BMC Software
 Tutoriales de pruebas de software de DevOps | Atlassian
+Las 17 principales herramientas de prueba de DevOps (2025) - Guru99
 DevOps Test | IBM
 Testing en DevOps y otras metodologías: una guía práctica
+Aprende cómo crear y utilizar planes de prueba en Azure DevOps - QAlified
+What is Azure Test Plans? Manual, exploratory, and automated test tools ...
 Devops Testing: Concepts, Best Practices & Tools - Testsigma
-¿Qué es Azure Test Plans? Herramientas de prueba manuales ...
-Dominando las pruebas en DevOps: Una guía exhaustiva de tipos y técnicas

@@ -13,16 +13,12 @@ start_time = time.time()
 
 # Brave browser configuration
 options = Options()
-
 system = platform.system()
 
 if system == "Windows":
-    # Local Windows environment
     options.binary_location = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
     options.add_argument("--start-maximized")
-
 else:
-    # Linux (CI/CD or local Linux)
     options.binary_location = "/usr/bin/brave-browser"
     options.add_argument("--start-maximized")
     options.add_argument("--headless=new")
@@ -34,30 +30,31 @@ else:
 driver = webdriver.Chrome(options=options)
 
 try:
-    # Open DuckDuckGo
     driver.get("https://duckduckgo.com")
 
-    # Wait until the search input is available
     wait = WebDriverWait(driver, 10)
     search_box = wait.until(
         EC.presence_of_element_located((By.ID, "searchbox_input"))
     )
 
-    # Enter search term and press Enter
     search_box.send_keys("DevOps testing")
     search_box.send_keys(Keys.RETURN)
 
-    # Wait for search results container to appear
-    wait.until(EC.visibility_of_element_located(
-        (By.CSS_SELECTOR, ".results--main"))
-    )
+    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".results--main")))
 
-    # Find result titles
-    results = driver.find_elements(
-        By.CSS_SELECTOR, "a[data-testid='result-title-a']"
-    )
+    # Try multiple selectors for result titles
+    results = driver.find_elements(By.CSS_SELECTOR, "a[data-testid='result-title-a']")
+    if not results:
+        results = driver.find_elements(By.CSS_SELECTOR, ".result__title a")
 
     print(f"\n🔎 Results found: {len(results)}")
+
+    if len(results) == 0:
+        # Save page HTML for debugging
+        with open("page_debug.html", "w", encoding="utf-8") as f:
+            f.write(driver.page_source)
+        print("⚠️ No results found. HTML saved to 'page_debug.html'")
+
     assert len(results) > 0
 
     # Print result titles
