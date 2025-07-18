@@ -31,16 +31,12 @@ jobs:
         sudo apt update
         sudo apt install brave-browser -y
 
-
-
-    - name: 🧩 Install ChromeDriver matching Brave version
+    - name: 📥 Install ChromeDriver (stable 138.x)
       run: |
-        BRAVE_VERSION=$(brave-browser --version | grep -oP "\d+\.\d+\.\d+\.\d+")
-        echo "Brave version: $BRAVE_VERSION"
-        CHROME_DRIVER_URL="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$BRAVE_VERSION/linux64/chromedriver-linux64.zip"
-        curl -sSLo chromedriver.zip "$CHROME_DRIVER_URL"
+        sudo apt-get install unzip -y
+        curl -sSLo chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/138.0.7240.0/linux64/chromedriver-linux64.zip
         unzip chromedriver.zip
-        sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+        sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
 
     - name: ✅ Run Selenium UI test with Brave
