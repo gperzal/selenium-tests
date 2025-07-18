@@ -45,6 +45,7 @@ selenium_duckduckgo_test/
 
 ---
 
+
 ## 🚀 How to Run the Test
 
 ### 📦 1. Install dependencies
@@ -127,6 +128,37 @@ If you're using GitHub Actions, you can upload the screenshot as an artifact usi
     name: screenshot
     path: screenshots
 ```
+
+
+---
+
+## 📦 Artifacts
+
+When running on CI, the following files are uploaded as artifacts:
+
+| File                        | Description                               |
+| --------------------------- | ----------------------------------------- |
+| `results.txt`               | Titles of the DuckDuckGo search results   |
+| `screenshots/results.png`   | Screenshot after the search is executed   |
+| `report.html`               | HTML log of the test execution (CI only)  |
+
+---
+
+## ⚙️ CI/CD Integration
+
+This project includes a GitHub Actions workflow (`.github/workflows/test-ui.yml`) that:
+
+- Installs Brave browser on Ubuntu runners.
+- Sets up Selenium with a compatible ChromeDriver.
+- Executes the `test_search.py` script in **headless mode** with a virtual display (Xvfb).
+- Uploads the following artifacts:
+  - `results.txt` – list of search results.
+  - `screenshots/results.png` – screenshot of the search results page.
+  - `report.html` – execution log in HTML format (via pytest).
+
+To trigger the workflow, push changes to the `main` branch or open a Pull Request.
+
+---
 
 ## 📜 License
 
