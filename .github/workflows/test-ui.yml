@@ -22,10 +22,10 @@ jobs:
     - name: 📦 Install dependencies
       run: pip install -r requirements.txt
 
-    - name: 🛠 Install tools (curl, unzip)
+    - name: 🛠 Install tools (curl, unzip, xvfb)
       run: |
         sudo apt-get update
-        sudo apt-get install -y curl unzip
+        sudo apt-get install -y curl unzip xvfb
 
     - name: 🦁 Install Brave browser
       run: |
@@ -44,17 +44,34 @@ jobs:
         chmod +x chromedriver-linux64/chromedriver
         sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
 
+    - name: 🖥️ Start virtual display
+      run: |
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1920x1080x24 &
+      shell: bash
+
     - name: ✅ Run Selenium UI test with Brave
+      env:
+        DISPLAY: :99
       run: python test_search.py
 
     - name: 📤 Upload results.txt
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: results
         path: results.txt
 
     - name: 📤 Upload screenshots
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: screenshots
         path: screenshots
+
+    - name: 🐞 Upload debug page if failed
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: page-debug
+        path: page_debug.html
