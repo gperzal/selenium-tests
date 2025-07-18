@@ -14,20 +14,24 @@ start_time = time.time()
 # Brave browser configuration
 options = Options()
 
-if platform.system() == "Windows":
-    options.binary_location = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
-elif platform.system() == "Linux":
-    options.binary_location = "/usr/bin/brave-browser"
+system = platform.system()
 
-options.add_argument("--start-maximized")
-options.add_argument("--headless=new")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument(f"--user-data-dir=/tmp/brave-user-data-{os.getpid()}") 
- 
+if system == "Windows":
+    # Local Windows environment
+    options.binary_location = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+    options.add_argument("--start-maximized")
+
+else:
+    # Linux (CI/CD or local Linux)
+    options.binary_location = "/usr/bin/brave-browser"
+    options.add_argument("--start-maximized")
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument(f"--user-data-dir=/tmp/brave-user-data-{os.getpid()}")
+
 # Launch ChromeDriver (expects it to be in PATH)
 driver = webdriver.Chrome(options=options)
-
 
 try:
     # Open DuckDuckGo
@@ -36,19 +40,22 @@ try:
     # Wait until the search input is available
     wait = WebDriverWait(driver, 10)
     search_box = wait.until(
-        EC.presence_of_element_located((By.ID, "searchbox_input")))
+        EC.presence_of_element_located((By.ID, "searchbox_input"))
+    )
 
     # Enter search term and press Enter
     search_box.send_keys("DevOps testing")
     search_box.send_keys(Keys.RETURN)
 
     # Wait for search results container to appear
-    wait.until(EC.presence_of_element_located(
-        (By.CSS_SELECTOR, ".results--main")))
+    wait.until(EC.visibility_of_element_located(
+        (By.CSS_SELECTOR, ".results--main"))
+    )
 
     # Find result titles
     results = driver.find_elements(
-        By.CSS_SELECTOR, "a[data-testid='result-title-a']")
+        By.CSS_SELECTOR, "a[data-testid='result-title-a']"
+    )
 
     print(f"\n🔎 Results found: {len(results)}")
     assert len(results) > 0
